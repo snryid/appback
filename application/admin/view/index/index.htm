@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html><head>
+	    <meta charset="utf-8">
+    <title> 今日电器 APPBack</title>
+
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link href="__ADMIN__/style/bootstrap.css" rel="stylesheet">
+    <link href="__ADMIN__/style/font-awesome.css" rel="stylesheet">
+    <link href="__ADMIN__/style/weather-icons.css" rel="stylesheet">
+
+    <!--Beyond styles-->
+    <link id="beyond-link" href="__ADMIN__/style/beyond.css" rel="stylesheet" type="text/css">
+    <link href="__ADMIN__/style/demo.css" rel="stylesheet">
+    <link href="__ADMIN__/__ADMIN__/style/typicons.css" rel="stylesheet">
+    <link href="__ADMIN__/style/animate.css" rel="stylesheet">
+    
+</head>
+<body>
+	<!-- 头部 -->
+    {include file="common/head"}
+	<!-- /头部 -->
+	
+	<div class="main-container container-fluid">
+		<div class="page-container">
+			<!-- Page Sidebar -->
+            {include file="common/left"}
+            <!-- /Page Sidebar -->
+            <!-- Page Content -->
+            <div class="page-content">
+               <!-- Page Breadcrumb -->
+                    <div class="page-breadcrumbs">
+                        <ul class="breadcrumb">
+                            <li>
+                                <i class="fa fa-home"></i>
+                                <a href="{:url('index/index')}">我的桌面</a>
+                            </li>
+                        </ul>
+                    </div>
+                <!-- Page Breadcrumb -->
+                <!-- Page Body -->
+                <div class="page-body">
+                    
+    				<table class="table table-border table-bordered table-bg">
+                            <thead>
+                                <tr>
+                                    <th colspan="7" scope="col">信息统计</th>
+                                </tr>
+                                <tr class="text-c">
+                                    <th>统计</th>
+                                    <th>资讯库</th>
+                                    <th>图片库</th>
+                                    <th>视频库</th>
+                                    <th>用户</th>
+                                    <th>管理员</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="text-c">
+                                    <td >总数</td>
+                                    <td>{$article}</td>
+                                    <td>{$image}</td>
+                                    <td>{$video}</td>       
+                                    <td>{$user}</td>
+                                    <td>{$admin}</td>
+                                </tr>
+                                <tr class="text-c">
+                                    <td>今日</td>
+                                    <td>{$article_d}</td>
+                                    <td>{$image_d}</td>
+                                    <td>{$video_d}</td>       
+                                    <td>{$user_d}</td>
+                                    <td>{$admin_d}</td>
+                                </tr>
+                                <tr class="text-c">
+                                    <td>昨日</td>
+                                    <td>{$article_yt}</td>
+                                    <td>{$image_yt}</td>
+                                    <td>{$video_yt}</td>       
+                                    <td>{$user_yt}</td>
+                                    <td>{$admin_yt}</td>
+                                </tr>
+                                <tr class="text-c">
+                                    <td>本周</td>
+                                    <td>{$article_w}</td>
+                                    <td>{$image_w}</td>
+                                    <td>{$video_w}</td>       
+                                    <td>{$user_w}</td>
+                                    <td>{$admin_w}</td>
+                                </tr>
+                                <tr class="text-c">
+                                    <td>本月</td>
+                                    <td>{$article_m}</td>
+                                    <td>{$image_m}</td>
+                                    <td>{$video_m}</td>       
+                                    <td>{$user_m}</td>
+                                    <td>{$admin_m}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table class="table table-border table-bordered table-bg mt-20">
+                            <thead>
+                                <tr>
+                                    <th colspan="2" scope="col">服务器信息</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <th width="30%">服务器计算机语言</th>
+                                    <td><span id="lbServerName">{$info.language}</span></td>
+                                </tr>
+                                <tr>
+                                    <td>服务器IP地址</td>
+                                    <td>{$info.IP}</td>
+                                </tr>
+                                <tr>
+                                    <td>服务器域名</td>
+                                    <td>{$info.ServerName}</td>
+                                </tr>
+                                <tr>
+                                    <td>服务器端口 </td>
+                                    <td>{$info.remote_port}</td>
+                                </tr>
+                                <tr>
+                                    <td>服务器运行环境</td>
+                                    <td>{$info.server_software}</td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>服务器操作系统 </td>
+                                    <td>{$info.OS}</td>
+                                </tr>
+                                <tr>
+                                    <td>PHP运行方式 </td>
+                                    <td>{$info.PHP_move}</td>
+                                </tr>
+                                <tr>
+                                    <td>服务器脚本超时时间 </td>
+                                    <td>{$info.overtime}</td>
+                                </tr>
+                                <tr>
+                                    <td>上传附件限制 </td>
+                                    <td>{$info.updata}</td>
+                                </tr>
+                                
+                                <tr>
+                                    <td>服务器当前时间 </td>
+                                    <td>{$info.severTime}</td>
+                                </tr>
+                               
+                                <tr>
+                                    <td>北京时间 </td>
+                                    <td>{$info.BJtime}</td>
+                                </tr>
+                               
+                               
+                                <tr>
+                                    <td>剩余空间 </td>
+                                    <td>{$info.memory}</td>
+                                </tr>
+                                 <tr>
+                                    <td>thinkPHP版本 </td>
+                                    <td>{$info.ThinkPHP}</td>
+                                </tr>
+                                <tr>
+                                    <td>当前系统用户名 </td>
+                                    <td>NETWORK SERVICE</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                </div>
+                
+                </div>
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+		</div>	
+	</div>
+
+	    <!--Basic Scripts-->
+    <script src="__ADMIN__/style/jquery_002.js"></script>
+    <script src="__ADMIN__/style/bootstrap.js"></script>
+    <script src="__ADMIN__/style/jquery.js"></script>
+    <!--Beyond Scripts-->
+    <script src="__ADMIN__/style/beyond.js"></script>
+    
+
+
+</body></html>

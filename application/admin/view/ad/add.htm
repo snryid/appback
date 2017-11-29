@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html><head>
+	    <meta charset="utf-8">
+    <title>今日电器 APPBack</title>
+
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link href="__ADMIN__/style/bootstrap.css" rel="stylesheet">
+    <link href="__ADMIN__/style/font-awesome.css" rel="stylesheet">
+    <link href="__ADMIN__/style/weather-icons.css" rel="stylesheet">
+
+    <!--Beyond styles-->
+    <link id="beyond-link" href="__ADMIN__/style/beyond.css" rel="stylesheet" type="text/css">
+    <link href="__ADMIN__/style/demo.css" rel="stylesheet">
+    <link href="__ADMIN__/style/typicons.css" rel="stylesheet">
+    <link href="__ADMIN__/style/animate.css" rel="stylesheet">
+    
+</head>
+<body>
+	<!-- 头部 -->
+	{include file="common/head"}
+
+	<!-- /头部 -->
+	
+	<div class="main-container container-fluid">
+		<div class="page-container">
+			            <!-- Page Sidebar -->
+            {include file="common/left"}
+            <!-- /Page Sidebar -->
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                        <li>
+                            <i class="fa fa-home"></i>
+                            <a href="{:url('index/index')}">我的桌面</a>
+                        </li>
+                        <li>
+                            <a href="#">广告管理</a>
+                        </li>
+                        <li>
+                            <a href="{:url('lst')}">广告列表</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Page Breadcrumb -->
+
+                <!-- Page Header -->
+                <div class="page-header position-relative">
+                    <div class="header-title">
+                        <h1>新增广告</h1>
+                    </div>
+                    <!--Header Buttons-->
+                    <div class="header-buttons">
+                        <a class="sidebar-toggler" href="#">
+                            <i class="fa fa-arrows-h"></i>
+                        </a>
+                        <a class="refresh" id="refresh-toggler" href="">
+                            <i class="glyphicon glyphicon-refresh"></i>
+                        </a>
+                        <a class="fullscreen" id="fullscreen-toggler" href="#">
+                            <i class="glyphicon glyphicon-fullscreen"></i>
+                        </a>
+                    </div>
+                    <!--Header Buttons End-->
+                </div>
+                <!-- /Page Header -->
+
+                <!-- Page Body -->
+                <div class="page-body">
+                    
+<div class="row">
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <div class="widget">
+            <div class="widget-header bordered-bottom bordered-blue">
+                <span class="widget-caption">新增广告</span>
+            </div>
+            <div class="widget-body">
+                <div id="horizontal-form">
+                    <form class="form-horizontal" role="form" action="" enctype="multipart/form-data" method="post">
+
+                        <div class="form-group">
+                            <label for="group_id" class="col-sm-2 control-label no-padding-right">所属广告位</label>
+                            <div class="col-sm-6">
+                                <select name="adpos_id" style="width: 100%;">
+                                    <option value="">选择广告位</option>
+                                    {volist name="adposRes" id="adpos"}
+                                    <option value="{$adpos.id}">{$adpos.name}</option>
+                                    {/volist}
+
+                                </select>
+                            </div>
+                        </div>  
+
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right">广告名</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" placeholder="" name="ad_name"  type="text">
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right">是否启用</label>
+                            <div class="col-sm-6">
+
+                                 <!-- 单选按钮 -->
+                                <div class="radio" style="float:left; padding-left:10px;">
+                                    <label>
+                                        <input checked="checked" name="on" value="1" class="colored-blue" type="radio">
+                                        <span class="text">是</span>
+                                    </label>
+                                </div>
+                                 <!-- 单选按钮 -->
+                                <div class="radio" style="float:left; padding-left:10px;">
+                                    <label>
+                                        <input name="on" value="0" class="colored-blue" type="radio">
+                                        <span class="text">否</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right">广告类型</label>
+                            <div class="col-sm-6">
+
+                                 <!-- 单选按钮 -->
+                                <div class="radio" style="float:left; padding-left:10px;">
+                                    <label>
+                                        <input id="img" checked="checked" name="type" value="1" class="colored-blue" type="radio">
+                                        <span class="text">图片</span>
+                                    </label>
+                                </div>
+                                 <!-- 单选按钮 -->
+                                <div class="radio" style="float:left; padding-left:10px;">
+                                    <label>
+                                        <input id="lh" name="type" value="2" class="colored-blue" type="radio">
+                                        <span class="text">轮换</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>
+
+                        <div class="img">
+                            <div class="form-group">
+                                <label for="username" class="col-sm-2 control-label no-padding-right">图片</label>
+                                <div class="col-sm-6">
+                                    <input class="help-block" name="img_src"  type="file">
+                                </div>
+                                <p class="help-block col-sm-4 red">* 必填</p>
+                            </div>
+                            <div class="form-group">
+                                <label for="username" class="col-sm-2 control-label no-padding-right">链接</label>
+                                <div class="col-sm-6">
+                                    <input class="form-control" placeholder="" name="link"  type="text">
+                                </div>
+                                <p class="help-block col-sm-4 red">* 必填</p>
+                            </div>
+                        </div>
+
+                        <div class="lh" style="display:none;">
+                            <div class="form-group">
+                                <label for="username" class="col-sm-2 control-label no-padding-right"><a href="javascript:;" onclick="dt(this);">[+]</a></label>
+                                <div class="col-sm-6 help-block">
+                                    <span>图片：</span>
+                                    <input style="display:inline;" placeholder="" name="fimg_src[]"  type="file">
+                                    <span>链接：</span>
+                                    <input style="display:inline; width:300px;" placeholder="" name="flink[]"  type="text">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-success">保存信息</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                </div>
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+		</div>	
+	</div>
+
+	    <!--Basic Scripts-->
+    <script src="__ADMIN__/style/jquery_002.js"></script>
+    <script src="__ADMIN__/style/bootstrap.js"></script>
+    <script src="__ADMIN__/style/jquery.js"></script>
+    <!--Beyond Scripts-->
+    <script src="__ADMIN__/style/beyond.js"></script>
+    <script type="text/javascript">
+        $("#img").click(function(){
+            $(".img").show();
+            $(".lh").hide();
+        });
+        $("#lh").click(function(){
+            $(".img").hide();
+            $(".lh").show();
+        });
+        //
+        function dt(o){
+            var div=$(o).parent().parent();
+            if($(o).html()==='[+]'){
+                var newdiv=div.clone();
+                newdiv.find("a").html('[-]');
+                div.after(newdiv);
+            }else{
+                div.remove();
+            }
+        }
+    </script>
+
+
+</body></html>

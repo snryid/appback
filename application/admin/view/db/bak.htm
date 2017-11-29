@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html><head>
+	    <meta charset="utf-8">
+    <title>今日电器 APPBack</title>
+
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link href="__ADMIN__/style/bootstrap.css" rel="stylesheet">
+    <link href="__ADMIN__/style/font-awesome.css" rel="stylesheet">
+    <link href="__ADMIN__/style/weather-icons.css" rel="stylesheet">
+
+    <!--Beyond styles-->
+    <link id="beyond-link" href="__ADMIN__/style/beyond.css" rel="stylesheet" type="text/css">
+    <link href="__ADMIN__/style/demo.css" rel="stylesheet">
+    <link href="__ADMIN__/style/typicons.css" rel="stylesheet">
+    <link href="__ADMIN__/style/animate.css" rel="stylesheet">
+    <script src="__ADMIN__/style/jquery_002.js"></script>
+    <script src="__ADMIN__/plus/layer/layer.js"></script>
+    <script src="__ADMIN__/plus/uploadify/jquery.uploadify.min.js"></script>
+    <script src="__ADMIN__/plus/ueditor/ueditor.config.js"></script>
+    <script src="__ADMIN__/plus/ueditor/ueditor.all.min.js"></script>
+    <script src="__ADMIN__/plus/ueditor/lang/zh-cn/zh-cn.js"></script> 
+</head>
+<body>
+	<!-- 头部 -->
+	{include file="common/head"}
+	<!-- /头部 -->
+	
+	<div class="main-container container-fluid">
+		<div class="page-container">
+			<!-- Page Sidebar -->
+                {include file="common/left"}
+            <!-- /Page Sidebar -->
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                      <li>
+                        <a href="#">系统</a>
+                     </li>
+                      <li>
+                        <a href="#">文档管理</a>
+                      </li>
+                      <li class="active">添加文档</li>
+                    </ul>
+                </div>
+                <!-- /Page Breadcrumb -->
+
+                <!-- Page Body -->
+                <div class="page-body">
+                    
+                            <button type="button" class="btn btn-info" onclick="handle('backup')">添加备份</button>
+                    <div class="table-responsive">
+                        <table class="table table-striped">
+                          <thead>
+                            <tr>
+                              <th>序号</th>
+                              <th>备份名称</th>
+                              <th>备份时间</th>
+                              <th>备份大小</th>
+                              <th>操作</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                          {volist name="list" id="vo"}
+                            <tr>
+                              <th scope="row">{$key}</th>
+                              <td>{$vo.name}</td>
+                              <td>{$vo.time}</td>
+                              <td>{$vo.size}</td>
+                              <td>
+                              <a class="btn btn-xs btn-success" href="{:url('bak',['tp'=>'dowonload','name'=>$vo.name])}">下载</a>
+                              <button type="button" class="btn btn-xs btn-warning" onclick="handle('restore','{$vo.name}')">还原</button>
+                              <button type="button"  class="btn btn-xs btn-danger" onclick="handle('del','{$vo.name}')">删除</button>
+                              </td>
+                            </tr>    
+                            
+                          {/volist}
+                          
+                            
+                          </tbody>
+                        </table>
+                </div>
+                </div>
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+		</div>	
+	</div>
+
+	    <!--Basic Scripts-->
+    <script src="__ADMIN__/style/bootstrap.js"></script>
+    <!--Beyond Scripts-->
+    <script src="__ADMIN__/style/beyond.js"></script>
+        <script>
+        function handle(tp,name=''){        
+            if (tp){
+                $.post("{:url('bak')}",{tp:tp,name:name},function(response){
+                    if (response){
+                        jSuccess(response, {VerticalPosition: 'center',HorizontalPosition: 'center'}); 
+                    }else{
+                        jError("操作失败，请重试!!", {VerticalPosition: 'center',HorizontalPosition: 'center'});
+                    }
+        
+                }); 
+            }
+        }
+    </script>
+    
+
+</body></html>

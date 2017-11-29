@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html><head>
+	    <meta charset="utf-8">
+    <title> 今 日 电 器 - 图库管理</title>
+
+     <!--引用文件-->
+	{include file="common/link" /} 
+    <!--/引用文件-->
+</head>
+<body>
+	<!-- 头部 -->
+    {include file="common/head" /} 
+	<!-- /头部 -->
+	
+	<div class="main-container container-fluid">
+		<div class="page-container">
+			<!-- Page Sidebar -->
+            {include file="common/left" /} 
+            <!-- /Page Sidebar -->
+            <!-- Page Content -->
+            <div class="page-content">
+                    <!-- Page Breadcrumb -->
+                    <div class="page-breadcrumbs">
+                        <ul class="breadcrumb">
+                            <li>
+                                <i class="fa fa-home"></i>
+                                <a href="{:url('index/index')}">我的桌面</a>
+                            </li>
+                            <li>
+                                <a href="{:url('image/index')}">图库管理</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /Page Breadcrumb -->
+                    <!-- Page Header -->
+                    <div class="page-header position-relative">
+                        <div class="header-title">
+                            <h1>相册列表</h1>
+                        </div>
+                       
+                        <!--Header Buttons-->
+                        <div class="header-buttons">
+                            <a class="sidebar-toggler" href="#">
+                                <i class="fa fa-arrows-h"></i>
+                            </a>
+                            <a class="refresh" id="refresh-toggler" href="">
+                                <i class="glyphicon glyphicon-refresh"></i>
+                            </a>
+                            <a class="fullscreen" id="fullscreen-toggler" href="#">
+                                <i class="glyphicon glyphicon-fullscreen"></i>
+                            </a>
+                        </div>
+                        <!--Header Buttons End-->
+                    </div>
+                    <!-- /Page Header -->
+
+                    <!-- Page Body -->
+                    <div class="page-body">
+                           
+                        <button type="button"  class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '{:url('add')}'"> <i class="fa fa-plus"></i> Add</button>
+                            
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12 col-xs-12">
+                                <div class="widget">
+                                    <div class="widget-body">
+                                        <div class="flip-scroll">
+                                            <form method="post" class="form-horizontal" role="form" action="" enctype="multipart/form-data" >
+                                                <div style="float: left;">
+                                                <span>相册选择：</span>
+                                                <select name="type_id"  style="cursor:pointer;" >
+                                                    <option>请选择 ...</option>
+                                                    {volist name="image_type" id ="type"}
+                                                    <option  value="{$type.type_id}">{$type.type_name}</option>
+                                                    {/volist}
+                                                </select>
+                                                </div>
+                                                <div style="float: left;margin-left: 15px;">
+                                                    <input class="btn btn-default" type="submit" value="查找">
+                                                    <input id="chkAll" onclick="CheckAll(this.form)" value="全选" type="checkbox" >
+                                                </div>
+                                                <div style="clear: both;"></div>
+                                            </form>
+
+                                            <div style="height: 10px;"></div>
+                                            <table class="table table-bordered table-hover">
+                                                <thead class="">
+                                                    <tr>
+                                                        <th class="text-center" width="5%">
+                                                            编号
+                                                        </th>
+                                                        <th class="text-center">相册标题</th>
+                                                        <th class="text-center">缩略图</th>
+                                                        <th class="text-center">图片类型</th>
+                                                        <th class="text-center">图片链接</th>
+                                                        <th class="text-center">新增时间</th>
+                                                        <th class="text-center">修改时间</th>
+                                                        <th class="text-center">图片描述</th>
+                                                        <th class="text-center">状态</th>
+                                                        <th class="text-center" width="10%">操作</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                   {volist name="image" id="img"}
+                                                        <tr>
+                                                            <td align="center">{$img.id}</td>
+                                                            <td>{$img.title}</td>
+                                                            <td align="center">
+                                                                {if condition="$img['thumb'] neq ''"}
+                                                                <a style="cursor:pointer; " onClick="check('{$img.image_url}')">
+                                                                    <img src="{$img.thumb}" height="30" ></img>
+                                                                </a>
+                                                                {else /}
+                                                                    暂无缩略图
+                                                                {/if}
+                                                            </td>
+                                                            <td align="center">{$img.type_name}</td>
+                                                            <td align="center">{$img.other_url}</td>
+                                                            <td align="center">{$img.add_time}</td>
+                                                            <td align="center">{$img.edit_time}</td>
+                                                            <td >{$img.image_content|cut_str=###,25}</td>
+                                                            <td align="center">{if condition="$img['res_status'] eq 1"}已开启{else /}<p style="color: red;">未开启</p>{/if}</td>
+                                                            <td align="center">
+                                                                <a href="{:url('edit',array('id'=>$img['id']))}" class="btn btn-primary btn-sm shiny">
+                                                                    <i class="fa fa-edit"></i>编辑
+                                                                </a>
+                                                                <a href="#" onClick="warning('确实要删除吗', '{:url('del',array('id'=>$img['id']))}')" class="btn btn-danger btn-sm shiny">
+                                                                    <i class="fa fa-trash-o"></i>删除
+                                                                </a>
+                                                            </td>
+                                                        </tr>
+                                                    {/volist}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div style="text-align:right; padding-top:10px;">
+                                            {$image->render()}  
+                                        </div>
+                                        <div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- /Page Body -->
+                </div>
+                <!-- /Page Content -->
+            </div>
+            <!-- /Page Content -->
+		</div>	
+	</div>
+
+	    <!--Basic Scripts-->
+    <script src="__ADMIN__/style/jquery_002.js"></script>
+    <script src="__ADMIN__/style/bootstrap.js"></script>
+    <script src="__ADMIN__/style/jquery.js"></script>
+    <!--Beyond Scripts-->
+    <script src="__ADMIN__/style/beyond.js"></script>
+    <script src="__ADMIN__/layer/layer.js"></script>
+   
+    <script type="text/javascript"  language="JavaScript">
+       function changetype(type) {
+        // alert(type);
+               var type_id = type;
+               $.ajax({
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    type_id: type_id
+                },
+                url: "{:url('Image/index')}",
+                success: function(data) {
+                    console.log(data);
+                }
+               });
+            }
+
+        
+
+        function getimgclass(id){
+            var type_id = id;
+
+            alert(type_id);
+            $.$.ajax({
+                url: "{:url('Image/getimgclass')}",
+                type: 'POST',
+                dataType: 'json',
+                data: {type_id: type_id},
+                success :function(data){
+
+                }
+            });
+           
+            
+        }
+
+    //图片查看
+        function check(imgurl){
+            layer.open({
+                    type: 2,
+                    title: '图片查看',
+                    area: ['1366px', '750px'],
+                    fix: false, //不固定
+                    shadeClose: false, //点击遮罩关闭
+                    skin: 'layui-layer-nobg', //没有背景色
+                    shade: 0.8,
+                    maxmin: true,
+                    content: imgurl,
+
+                });
+        }
+
+    </script>
+    
+
+</body>
+</html>

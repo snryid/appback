@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title> 今日电器 APPBack </title>
+
+		<script src="__ADMIN__/ueditor/ueditor.config.js"></script>
+		<script src="__ADMIN__/ueditor/ueditor.all.min.js"></script>
+		<script src="__ADMIN__/ueditor/lang/zh-cn/zh-cn.js"></script>
+		<!--引用文件-->
+		<meta name="description" content="Dashboard">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<!--Basic Styles-->
+		<link href="__ADMIN__/style/bootstrap.css" rel="stylesheet">
+		<link href="__ADMIN__/style/font-awesome.css" rel="stylesheet">
+		<link href="__ADMIN__/style/weather-icons.css" rel="stylesheet">
+		<link href="__ADMIN__/layer/skin/layer.css" rel="stylesheet">
+		
+		<!--Beyond styles-->
+		<link id="beyond-link" href="__ADMIN__/style/beyond.css" rel="stylesheet" type="text/css">
+		<link href="__ADMIN__/style/demo.css" rel="stylesheet">
+		<link href="__ADMIN__/style/typicons.css" rel="stylesheet">
+		<link href="__ADMIN__/style/animate.css" rel="stylesheet">
+		<!--/引用文件-->
+	</head>
+
+	<body>
+		<!-- 头部 -->
+		{include file="common/head" /}
+		<!-- /头部 -->
+		<div class="main-container container-fluid">
+			<div class="page-container">
+				<!-- Page Sidebar -->
+				{include file="common/left" /}
+				<!-- /Page Sidebar -->
+
+				<!-- Page Content -->
+				<div class="page-content">
+					<!-- Page Breadcrumb -->
+					<div class="page-breadcrumbs">
+	                   <ul class="breadcrumb">
+	                       <li>
+	                           <i class="fa fa-home"></i>
+	                           <a href="{:url('index/index')}">我的桌面</a>
+	                       </li>
+	                       <li>
+	                           <a href="{:url('video/index')}">视频列表</a>
+	                       </li>
+	                   </ul>
+	                </div>
+					<!-- /Page Breadcrumb -->
+
+					<!-- Page Body -->
+					<div class="page-body">
+
+						<div class="row">
+							<div class="col-lg-12 col-sm-12 col-xs-12">
+								<div class="widget">
+									<div class="widget-header bordered-bottom bordered-blue">
+										<span class="widget-caption">视频上传</span>
+									</div>
+									<div class="widget-body">
+										<div id="horizontal-form">
+											<form class="form-horizontal"  action="" enctype="multipart/form-data" method="post" onsubmit="return sumbit_sure()">
+												<div class="form-group">
+													<label for="username" class="col-sm-2 control-label no-padding-right">视频分类</label>
+													<div class="col-sm-6">
+														<select name="vid">
+															{volist name="res_class" id="res"}
+						                                    <option value="{$res.type_id}">{$res.class_video}</option>
+						                                    {/volist}
+														</select>
+													</div>
+													<p class="help-block col-sm-4 red">* 必填</p>
+												</div>
+
+												<div class="form-group">
+													<label for="username" class="col-sm-2 control-label no-padding-right">标 &nbsp; &nbsp; &nbsp; 题</label>
+													<div class="col-sm-6">
+														<input class="form-control" placeholder="" required="required" name="title" type="text">
+													</div>
+													<p class="help-block col-sm-4 red">* 必填</p>
+												</div>
+
+												<div class="form-group">
+													<label for="username" class="col-sm-2 control-label no-padding-right">详情链接</label>
+													<div class="col-sm-6">
+														<input class="form-control" placeholder="" name="det_url" type="text">
+													</div>
+													<p class="help-block col-sm-4 red">* 需要添加视频详情时使用！</p>
+												</div>
+
+												<div class="form-group">
+													<label for="username" class="col-sm-2 control-label no-padding-right">描 &nbsp; &nbsp; &nbsp; 述</label>
+													<div class="col-sm-6">
+														<textarea name="des_content" required="required" class="form-control"></textarea>
+													</div>
+												</div>
+
+												<div class="form-group">
+													<label for="username" class="col-sm-2 control-label no-padding-right">标注时间</label>
+													<div class="col-sm-6">
+														<input class="form-control" placeholder="" name="time" type="text">
+													</div>
+													<p class="help-block col-sm-4 red">* 添加视频时间节点缩略图，单位（s/秒）默认为第一秒第一帧！</p>
+												</div>
+
+												<div class="form-group">
+													<label for="username" class="col-sm-2 control-label no-padding-right">本地上传</label>
+													<div class="col-sm-6">
+														<input type="file" name="video" >
+													</div>
+												</div>
+
+												<div class="form-group">
+												    <label class="col-sm-2 control-label no-padding-right" for="username" required="">内容详情</label>
+												    <div class="col-sm-6">
+												        <textarea id="content" name="det_content"></textarea>
+												    </div>
+												</div>
+
+												<div class="form-group">
+													<label for="username" class="col-sm-2 control-label no-padding-right">状 &nbsp; &nbsp; &nbsp; 态</label>
+													<div class="col-sm-6">
+														<label class="radio" style="float:left; margin-right:10px;" style="margin-right:15px;">
+						                                    <input  name="rec_status" value="1" type="radio">
+						                                    <span class="text">开启</span>
+	                                					</label>
+														<label class="radio" style="float:left; margin-right:10px;" style="margin-right:15px;">
+						                                    <input checked="checked"  class="inverted" name="rec_status" value="0" type="radio">
+						                                    <span class="text">关闭</span>
+	                                					</label>
+													</div>
+													<p class="help-block col-sm-4 red">* 必填</p>
+												</div>
+
+												<div class="form-group">
+													<label for="username" class="col-sm-2 control-label no-padding-right">推荐视频</label>
+													<div class="col-sm-6">
+														<label class="radio" style="float:left; margin-right:10px;" style="margin-right:15px;">
+						                                    <input name="rec_bottom" value="1" type="radio">
+						                                    <span class="text">是</span>
+	                                					</label>
+														<label class="radio" style="float:left; margin-right:10px;" style="margin-right:15px;">
+						                                    <input checked="checked"  class="inverted" name="rec_bottom" value="0" type="radio">
+						                                    <span class="text">否</span>
+	                            						</label>
+													</div>
+													<p class="help-block col-sm-4 red">* 必填</p>
+												</div>
+
+												<div class="form-group">
+													<div class="col-sm-offset-2 col-sm-10">
+														<button type="submit" class="btn btn-success">上传视频</button>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<!-- /Page Body -->
+				</div>
+				<!-- /Page Content -->
+			</div>
+		</div>
+		<!--Basic Scripts-->
+		<script src="__ADMIN__/style/jquery-1.11.0.js"></script>
+		<script src="__ADMIN__/style/bootstrap.js"></script>
+		<script src="__ADMIN__/style/jquery.js"></script>
+		<script src="__ADMIN__/layer/layer.js"></script>
+		<!--Beyond Scripts-->
+		<script src="__ADMIN__/style/beyond.js"></script>
+		<script src="__ADMIN__/plus/ueditor/ueditor.config.js"></script>
+		<script src="__ADMIN__/plus/ueditor/ueditor.all.min.js"></script>
+		<script src="__ADMIN__/plus/ueditor/lang/zh-cn/zh-cn.js"></script>
+		<script type="text/javascript">
+		    //实例化编辑器
+		    //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+		UE.getEditor('content', {
+				toolbars: [
+					[
+						'fullscreen', 'source', '|', 'undo', 'redo', '|',
+						'bold', 'italic', 'underline', 'fontborder', 'strikethrough', 'pasteplain', '|', 'forecolor', 'backcolor', 'insertorderedlist', 'insertunorderedlist', 'selectall', 'cleardoc', '|',
+						'rowspacingtop', 'rowspacingbottom', 'lineheight', '|',
+						'customstyle', 'paragraph', 'fontfamily', 'fontsize', '|',
+						'directionalityltr', 'directionalityrtl', 'indent', '|',
+						'justifyleft', 'justifycenter', 'justifyright', 'justifyjustify', '|', 'touppercase', 'tolowercase', '|',
+						'link', 'unlink', 'anchor', '|', 'imagenone', 'imageleft', 'imageright', 'imagecenter', '|',
+						'simpleupload', 'insertimage', 'emotion', 'scrawl', 'insertvideo', 'music', 'attachment'
+					]
+
+				],
+				initialFrameWidth: 800,
+				initialFrameHeight: 400
+			});
+		</script>
+		<script language="javascript">  
+			function sumbit_sure()
+			{
+				var index = layer.load(1, {
+  					shade: [0.7,'#eee'] //0.1透明度的白色背景
+				});
+			} 
+
+		</script>
+		{include file="common/JSresult" /}
+		
+	</body>
+
+</html>

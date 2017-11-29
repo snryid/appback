@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html><head>
+	    <meta charset="utf-8">
+    <title>今日电器 APPBack</title>
+
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link href="__ADMIN__/style/bootstrap.css" rel="stylesheet">
+    <link href="__ADMIN__/style/font-awesome.css" rel="stylesheet">
+    <link href="__ADMIN__/style/weather-icons.css" rel="stylesheet">
+
+    <!--Beyond styles-->
+    <link id="beyond-link" href="__ADMIN__/style/beyond.css" rel="stylesheet" type="text/css">
+    <link href="__ADMIN__/style/demo.css" rel="stylesheet">
+    <link href="__ADMIN__/style/typicons.css" rel="stylesheet">
+    <link href="__ADMIN__/style/animate.css" rel="stylesheet">
+    
+</head>
+<body>
+	<!-- 头部 -->
+	   {include file="common/head"}
+	<!-- /头部 -->
+	
+	<div class="main-container container-fluid">
+		<div class="page-container">
+			<!-- Page Sidebar -->
+                {include file="common/left"}
+            <!-- /Page Sidebar -->
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                        <li>
+                            <i class="fa fa-home"></i>
+                            <a href="{:url('index/index')}">我的桌面</a>
+                        </li>
+                        <li>
+                            <a href="{:url('admin/lst')}">管理员管理</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Page Breadcrumb -->
+
+                <!-- Page Header -->
+                <div class="page-header position-relative">
+                    <div class="header-title">
+                        <h1>修改管理员</h1>
+                    </div>
+                    <!--Header Buttons-->
+                    <div class="header-buttons">
+                        <a class="sidebar-toggler" href="#">
+                            <i class="fa fa-arrows-h"></i>
+                        </a>
+                        <a class="refresh" id="refresh-toggler" href="">
+                            <i class="glyphicon glyphicon-refresh"></i>
+                        </a>
+                        <a class="fullscreen" id="fullscreen-toggler" href="#">
+                            <i class="glyphicon glyphicon-fullscreen"></i>
+                        </a>
+                    </div>
+                    <!--Header Buttons End-->
+                </div>
+                <!-- /Page Header -->
+
+                <!-- Page Body -->
+                <div class="page-body">
+                    <div class="row">
+                        <div class="col-lg-12 col-sm-12 col-xs-12">
+                            <div class="widget">
+                                <div class="widget-header bordered-bottom bordered-blue">
+                                    <span class="widget-caption">修改管理员</span>
+                                </div>
+                                <div class="widget-body">
+                                    <div id="horizontal-form">
+                                        <form class="form-horizontal" role="form" action="" method="post">
+                                            <input type="hidden" name="id" value="{$admins.id}">
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label no-padding-right">所属用户组</label>
+                                                {if(session('id') == '1' ) }
+                                                <div class="col-sm-6">
+                                                    <select name="groupid">
+                                                            <option value="">请选择</option>
+                                                            {volist name="groupRes" id="group"}
+                                                            <option {if condition="$admins['groupid'] eq $group['id']"} selected="selected" {/if} value="{$group.id}">{$group.title}</option>
+                                                            {/volist}
+                                                    </select>
+                                                </div>
+                                                <p class="help-block col-sm-4 red">* 必填</p>
+                                                {else}
+                                                <div class="col-sm-6">
+                                                    <select name="groupid" readonly="readonly">
+                                                            {volist name="groupRes" id="group"}
+                                                            <option {if condition="$admins['groupid'] eq $group['id']"} selected="selected" {/if} value="{$group.id}">{$group.title}</option>
+                                                            {/volist}
+                                                    </select>
+                                                </div>
+                                                <p class="help-block col-sm-4 red">* 不是超级管理员不可编辑！</p>
+                                                {/if}
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label no-padding-right">管理员名</label>
+                                                <div class="col-sm-6">
+                                                    <input class="form-control" placeholder="placeholder" value="{$admins.uname}"  name="uname" required="required" type="text" {if condition="session('id') neq 1 "} readonly="readonly" {/if}>
+                                                </div>
+                                                {if(session('id') == '1' ) }
+                                                <p class="help-block col-sm-4 red">* 必填</p>
+                                                {else}
+                                                <p class="help-block col-sm-4 red">* 不是超级管理员不可编辑！</p>
+                                                {/if}
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label no-padding-right">密码</label>
+                                                <div class="col-sm-6">
+                                                    <input class="form-control" placeholder="请输入密码" name="password" type="password">
+                                                </div>
+                                                <p class="help-block col-sm-4 red">* 必填，留空表示不修改！</p>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-sm-2 control-label no-padding-right">确认密码</label>
+                                                <div class="col-sm-6">
+                                                    <input class="form-control check_pwd" placeholder="请确认密码" name="conf_password" type="password">
+                                                </div>
+                                                <p class="help-block col-sm-4 red" >* 必填</p>
+                                                <span id="passwordMSG" class="red col-sm-4" style="margin-left: 21em;"></span>
+                                            </div >
+
+                                            <div class="form-group">
+                                                <input id="urlimg" type="hidden" value="" name="admin_icon">
+                                                <label class="col-sm-2 control-label no-padding-right">头像选择</label>
+                                                <div class="col-sm-6" style="width: 25%;height: 18em; box-shadow: 10px 10px 5px #eee;border: 2px solid #eee;margin-left: 1em;" >
+                                                    {volist name="icon_path" id="icon"}
+                                                    <div class="box_img" style="position: relative;width: 5em;height: 5em; float: left; margin: 5px 5px;border: 1px solid #eee;" >
+                                                        <img class="imgs" src="{$icon.icon_path}" width="60" style=" position: absolute; " > 
+                                                        <img class="sss" src="__ADMIN__/images/draw.jpg" width="60" style=" position: absolute; display: none; " > 
+                                                    </div>
+                                                    {/volist}
+                                                   
+                                                </div>
+                                            </div >
+
+                                            <div class="form-group">
+                                                <div class="col-sm-offset-2 col-sm-10">
+                                                    <button type="submit" class="btn btn-success">保存信息</button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+		</div>	
+	</div>
+
+	    <!--Basic Scripts-->
+    <script src="__ADMIN__/style/jquery_002.js"></script>
+    <script src="__ADMIN__/style/bootstrap.js"></script>
+    <script src="__ADMIN__/style/jquery.js"></script>
+    <script src="__ADMIN__/layer/layer.js"></script>
+    <!--Beyond Scripts-->
+    <script src="__ADMIN__/style/beyond.js"></script>
+    {include file="common/JSresult" /}
+    <script type="text/javascript">
+
+       $(document).ready(function(){
+          $(".check_pwd").blur(function(){
+            var password = $("input[name='password']").val();
+            var conf_password = $("input[name='conf_password']").val();
+            if (password.length < 6 && password !== '') {
+                layer.alert('密码太短，必需是六位数以上！');
+                return false;
+            }else if (password !== conf_password) {
+                layer.alert('密码不一致，请重新输入！');
+                return false;
+            }
+
+          });
+        });
+       window.onload = function(){
+           $("button").click(function(){
+            var password = $("input[name='password']").val();
+            var conf_password = $("input[name='conf_password']").val();
+            if(password == conf_password){
+               return true;
+            }else{
+               return false;
+
+            }
+           });
+       };
+    </script>
+    <script type="text/javascript">
+        //选择头像
+        $(".box_img").on("click",function() {
+           $(".sss").css('display',"none");
+            $(this).find('.sss').css('display',"block");
+            var url = $(this).find('.imgs').attr('src');
+            $("#urlimg").val(url);
+           
+        });
+    </script>
+
+
+</body></html>

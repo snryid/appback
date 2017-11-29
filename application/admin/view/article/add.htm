@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+            <title>
+                今 日 电 器 - 新增文章
+            </title>
+            <meta content="Dashboard" name="description">
+            <meta content="width=device-width, initial-scale=1.0" name="viewport">
+            <meta content="IE=edge" http-equiv="X-UA-Compatible">
+            <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+            <!--Basic Styles-->
+            <link href="__ADMIN__/style/bootstrap.css" rel="stylesheet">
+            <link href="__ADMIN__/style/font-awesome.css" rel="stylesheet">
+            <link href="__ADMIN__/style/weather-icons.css" rel="stylesheet">
+            <!--Beyond styles-->
+            <link href="__ADMIN__/style/beyond.css" id="beyond-link" rel="stylesheet" type="text/css">
+            <link href="__ADMIN__/style/admin-top.css" rel="stylesheet" type="text/css">
+            <link href="__ADMIN__/style/demo.css" rel="stylesheet">
+            <link href="__ADMIN__/style/typicons.css" rel="stylesheet">
+            <link href="__ADMIN__/style/animate.css" rel="stylesheet">
+            <script src="__ADMIN__/plus/ueditor/ueditor.config.js"></script>
+            <script src="__ADMIN__/plus/ueditor/ueditor.all.min.js"></script>
+            <script src="__ADMIN__/plus/ueditor/lang/zh-cn/zh-cn.js"></script>
+                                                       
+    </head>
+    <body>
+        <!-- 头部 -->
+        {include file="common/head" /}
+        <!-- /头部 -->
+        <div class="main-container container-fluid">
+            <div class="page-container">
+                <!-- Page Sidebar -->
+                {include file="common/left" /}
+                <!-- /Page Sidebar -->
+                <!-- Page Content -->
+                <div class="page-content">
+                    <!-- Page Breadcrumb -->
+                    <div class="page-breadcrumbs">
+                        <ul class="breadcrumb">
+                            <li>
+                                <i class="fa fa-home"></i>
+                                <a href="{:url('index/index')}">我的桌面</a>
+                            </li>
+                            <li>
+                                <a href="{:url('lst')}"> 文章管理 </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Page Breadcrumb -->
+                    <!-- Page Body -->
+                    <div class="page-body">
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12 col-xs-12">
+                                <div class="widget">
+                                    <div class="widget-header bordered-bottom bordered-blue">
+                                        <span class="widget-caption">
+                                            新增文章
+                                        </span>
+                                    </div>
+                                    <div class="widget-body">
+                                        <div id="horizontal-form">
+                                            <form action="" class="form-horizontal" enctype="multipart/form-data" method="post" role="form">
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label no-padding-right" for="username">
+                                                        标题
+                                                    </label>
+                                                    <div class="col-sm-6">
+                                                        <input class="form-control" name="title" placeholder="" required="" type="text">
+                                                        </input>
+                                                    </div>
+                                                    <p class="help-block col-sm-4 red">
+                                                        * 必填
+                                                    </p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label no-padding-right" for="username">
+                                                        作者
+                                                    </label>
+                                                    <div class="col-sm-6">
+                                                        <input class="form-control" name="author" placeholder="" type="text">
+                                                        </input>
+                                                    </div>
+                                                    <p class="help-block col-sm-4 red">
+                                                        * 必填
+                                                    </p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label no-padding-right" for="username">
+                                                        关键词
+                                                    </label>
+                                                    <div class="col-sm-6">
+                                                        <input class="form-control" name="keywords" placeholder="" type="text">
+                                                        </input>
+                                                    </div>
+                                                    <p class="help-block col-sm-4 red">
+                                                        * 必填
+                                                    </p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label no-padding-right" for="username">
+                                                        详情链接
+                                                    </label>
+                                                    <div class="col-sm-6">
+                                                        <input class="form-control" name="details" placeholder="" type="text">
+                                                        </input>
+                                                    </div>
+                                                    <p class="help-block col-sm-4 red">
+                                                        * 此项仅用于第三方链接
+                                                    </p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label no-padding-right" for="username">
+                                                        描述
+                                                    </label>
+                                                    <div class="col-sm-6">
+                                                        <textarea class="form-control" name="desc">
+                                                        </textarea>
+                                                    </div>
+                                                    <p class="help-block col-sm-4 red">
+                                                        * 必填
+                                                    </p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label no-padding-right" for="username">
+                                                        缩略图
+                                                    </label>
+                                                    <div class="col-sm-6">
+                                                        <input name="thumb" placeholder="" type="file">
+                                                        </input>
+                                                    </div>
+                                                    <p class="help-block col-sm-4 red">
+                                                        * 必填 | 在列表显示
+                                                    </p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label no-padding-right" for="username">
+                                                        是否推荐
+                                                    </label>
+                                                    <div class="col-sm-6">
+                                                        <label style="margin-right:15px;">
+                                                            <input name="rec" type="radio" value="1">
+                                                                <span class="text">
+                                                                    是
+                                                                </span>
+                                                            </input>
+                                                        </label>
+                                                        <label style="margin-right:15px;">
+                                                            <input checked="checked" class="inverted" name="rec" type="radio" value="0">
+                                                                <span class="text">
+                                                                    否
+                                                                </span>
+                                                            </input>
+                                                        </label>
+                                                    </div>
+                                                    <p class="help-block col-sm-4 red">
+                                                        * 必填
+                                                    </p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label no-padding-right" for="username">
+                                                        所属栏目
+                                                    </label>
+                                                    <div class="col-sm-6">
+                                                        <select name="cateid">
+                                                            {volist name="cateres" id="cate"}
+                                                            <option value="{$cate.id}">
+                                                                {if condition="$cate['level'] neq 0"}|{/if}
+                                                                <?php echo str_repeat('-', $cate['level']*4)?>
+                                                                {$cate.catename}
+                                                            </option>
+                                                            {/volist}
+                                                        </select>
+                                                    </div>
+                                                    <p class="help-block col-sm-4 red">
+                                                        * 必填
+                                                    </p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <label class="col-sm-2 control-label no-padding-right" for="username" required="">
+                                                        内容
+                                                    </label>
+                                                    <div class="col-sm-6">
+                                                        <textarea id="content" name="content">
+                                                        </textarea>
+                                                    </div>
+                                                    <p class="help-block col-sm-4 red">
+                                                        * 必填
+                                                    </p>
+                                                </div>
+                                                <div class="form-group">
+                                                    <div class="col-sm-offset-2 col-sm-10">
+                                                        <button class="btn btn-success" type="submit">
+                                                            保存信息
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /Page Body -->
+                </div>
+                <!-- /Page Content -->
+            </div>
+        </div>
+        <!--Basic Scripts-->
+        <script src="__ADMIN__/style/jquery_002.js">
+        </script>
+        <script src="__ADMIN__/style/bootstrap.js">
+        </script>
+        <script src="__ADMIN__/style/jquery.js">
+        </script>
+        <!--Beyond Scripts-->
+        <script src="__ADMIN__/style/beyond.js">
+        </script>
+        <script type="text/javascript">
+            //实例化编辑器
+            //建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+        UE.getEditor('content',{initialFrameWidth:800,initialFrameHeight:400,});
+        </script>
+        {include file="common/JSresult" /}
+    </body>
+</html>

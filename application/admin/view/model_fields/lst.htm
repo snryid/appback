@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html><head>
+	    <meta charset="utf-8">
+    <title>今日电器 APPBack</title>
+
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link href="__ADMIN__/style/bootstrap.css" rel="stylesheet">
+    <link href="__ADMIN__/style/font-awesome.css" rel="stylesheet">
+    <link href="__ADMIN__/style/weather-icons.css" rel="stylesheet">
+    <script src="__ADMIN__/style/jquery_002.js"></script>
+    <script src="__ADMIN__/plus/layer/layer.js"></script>
+
+    <!--Beyond styles-->
+    <link id="beyond-link" href="__ADMIN__/style/beyond.css" rel="stylesheet" type="text/css">
+    <link href="__ADMIN__/style/demo.css" rel="stylesheet">
+    <link href="__ADMIN__/style/typicons.css" rel="stylesheet">
+    <link href="__ADMIN__/style/animate.css" rel="stylesheet">
+    
+</head>
+<body>
+	<!-- 头部 -->
+    {include file="common/head"}
+	<!-- /头部 -->
+	
+	<div class="main-container container-fluid">
+		<div class="page-container">
+			<!-- Page Sidebar -->
+            {include file="common/left"}
+            <!-- /Page Sidebar -->
+            <!-- Page Content -->
+            <div class="page-content">
+               <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                        <li>
+                            <i class="fa fa-home"></i>
+                            <a href="{:url('index/index')}">我的桌面</a>
+                        </li>
+                        <li>
+                            <a href="#">字段管理</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Page Breadcrumb -->
+
+                <!-- Page Header -->
+                <div class="page-header position-relative">
+                    <div class="header-title">
+                        <h1>字段列表</h1>
+                    </div>
+                    <!--Header Buttons-->
+                    <div class="header-buttons">
+                        <a class="sidebar-toggler" href="#">
+                            <i class="fa fa-arrows-h"></i>
+                        </a>
+                        <a class="refresh" id="refresh-toggler" href="">
+                            <i class="glyphicon glyphicon-refresh"></i>
+                        </a>
+                        <a class="fullscreen" id="fullscreen-toggler" href="#">
+                            <i class="glyphicon glyphicon-fullscreen"></i>
+                        </a>
+                    </div>
+                    <!--Header Buttons End-->
+                </div>
+                <!-- /Page Header -->
+
+                <!-- Page Body -->
+                <div class="page-body">
+                    
+<button type="button" tooltip="添加用户" class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '{:url('add')}'"> <i class="fa fa-plus"></i> Add
+</button>
+<div class="row">
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div class="flip-scroll">
+                    <table class="table table-bordered table-hover">
+                        <thead class="">
+                            <tr>
+                                <th class="text-center" width="6%">ID</th>
+                                <th class="text-center">中文名称</th>
+                                <th class="text-center">英文名称</th>
+                                <th class="text-center">字段类型</th>
+                                <th class="text-center">所属模型</th>
+                                <th class="text-center" width="12%">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {volist name="fieldRes" id="field"}
+                            <tr>
+                                <td align="center">{$field.id}</td>
+                                <td align="center">{$field.field_cname}</td>
+                                <td align="center">{$field.field_ename}</td>
+                                <!-- 字段类型：1：单行文本 2：单选安按钮 3：复选框 4：下拉菜单 5：文本域 6：附件 7：浮点 8：整型 9：长文本类型 longtext -->
+                                <td align="center">
+                                    {switch $field.field_type}
+                                        {case 1} 单行文本 {/case}
+                                        {case 2} 单选安按钮 {/case}
+                                        {case 3} 复选框 {/case}
+                                        {case 4} 下拉菜单 {/case}
+                                        {case 5} 文本域 {/case}
+                                        {case 6} 附件 {/case}
+                                        {case 7} 浮点 {/case}
+                                        {case 8} 整型 {/case}
+                                        {case 9} 长文本类型 {/case}
+                                    {/switch}
+                                </td>
+                                <td align="center">{$field.model_name}</td>
+                                <td align="center">
+                                    <a href="{:url('ModelFields/edit',['id'=>$field['id']])}" class="btn btn-primary btn-sm shiny">
+                                        <i class="fa fa-edit"></i> 编辑
+                                    </a>
+                                    <a href="#" id="{$field.id}" onClick="ajaxdel(this);" class="btn btn-danger btn-sm shiny">
+                                        <i class="fa fa-trash-o"></i> 删除
+                                    </a>
+                                </td>
+                            </tr>
+                            {/volist}
+                        </tbody>
+                    </table>
+                    <div style="padding-top:10px; text-align:right;">
+                    {$fieldRes->render()}
+                    </div>
+                </div>
+                <div>
+                	                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                </div>
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+		</div>	
+	</div>
+
+	    <!--Basic Scripts-->
+    <script src="__ADMIN__/style/bootstrap.js"></script>
+    <!--Beyond Scripts-->
+    <script src="__ADMIN__/style/beyond.js"></script>
+    
+    <script type="text/javascript">
+        //ajax删除字段
+        function ajaxdel(o){
+            layer.confirm('确定要删除该字段吗？', {icon: 3, title:'提示'}, function(index){
+            //do something
+            var id=$(o).attr("id");
+            // var table_name=$(o).attr("table_name");
+            $.ajax({
+                type:"post",
+                dataType:"json",
+                data:{id:id},
+                url:"{:url('ModelFields/ajaxdel')}",
+                success:function(data){
+                    if(data==1){
+                        layer.msg('删除字段成功！', {icon: 1});
+                        window.location.href="{:url('ModelFields/lst')}";
+                    }else{
+                        layer.msg('删除字段失败！', {icon: 2});
+                    }
+                }
+            });
+              layer.close(index);
+            });
+        }
+    </script>
+
+
+</body></html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html><head>
+	    <meta charset="utf-8">
+    <title>今日电器 APPBack</title>
+
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link href="__ADMIN__/style/bootstrap.css" rel="stylesheet">
+    <link href="__ADMIN__/style/font-awesome.css" rel="stylesheet">
+    <link href="__ADMIN__/style/weather-icons.css" rel="stylesheet">
+    <script src="__ADMIN__/style/jquery_002.js"></script>
+    <script src="__ADMIN__/plus/layer/layer.js"></script>
+    <!--Beyond styles-->
+    <link id="beyond-link" href="__ADMIN__/style/beyond.css" rel="stylesheet" type="text/css">
+    <link href="__ADMIN__/style/demo.css" rel="stylesheet">
+    <link href="__ADMIN__/style/typicons.css" rel="stylesheet">
+    <link href="__ADMIN__/style/animate.css" rel="stylesheet">
+</head>
+<body>
+	<!-- 头部 -->
+	{include file="common/head"}
+	<!-- /头部 -->
+	
+	<div class="main-container container-fluid">
+		<div class="page-container">
+			<!-- Page Sidebar -->
+            {include file="common/left"}
+            <!-- /Page Sidebar -->
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                        <li>
+                            <i class="fa fa-home"></i>
+                            <a href="{:url('index/index')}">我的桌面</a>
+                        </li>
+                        <li>
+                            <a href="#">模型管理</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Page Breadcrumb -->
+
+                <!-- Page Header -->
+                <div class="page-header position-relative">
+                    <div class="header-title">
+                        <h1>模型列表</h1>
+                    </div>
+                    <!--Header Buttons-->
+                    <div class="header-buttons">
+                        <a class="sidebar-toggler" href="#">
+                            <i class="fa fa-arrows-h"></i>
+                        </a>
+                        <a class="refresh" id="refresh-toggler" href="">
+                            <i class="glyphicon glyphicon-refresh"></i>
+                        </a>
+                        <a class="fullscreen" id="fullscreen-toggler" href="#">
+                            <i class="glyphicon glyphicon-fullscreen"></i>
+                        </a>
+                    </div>
+                    <!--Header Buttons End-->
+                </div>
+                <!-- /Page Header -->
+
+                <!-- Page Body -->
+                <div class="page-body">
+                    
+<button type="button" tooltip="添加模型" class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '{:url('Model/add')}'"> <i class="fa fa-plus"></i> Add
+</button>
+<div class="row">
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <div class="widget">
+            <div class="widget-body">
+                <div class="flip-scroll">
+                    <table class="table table-bordered table-hover">
+                        <thead class="">
+                            <tr>
+                                <th class="text-center" width="4%">ID</th>
+                                <th class="text-center">模型名称</th>
+                                <th class="text-center">附加表名</th>
+                                <th class="text-center">启用状态</th>
+                                <th class="text-center" width="20%">操作</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {volist name="modelRes" id="model"}
+                            <tr>
+                                <td align="center">{$model.id}</td>
+                                <td align="center"><a href="{:url('ModelFields/lst',array('model_id'=>$model['id']))}">{$model.model_name}</a></td>
+                                <td align="center">{$prefix}{$model.table_name}</td>
+                                <td align="center">
+                                    {if condition="$model['status'] eq 1"}
+                                    <a modelid="{$model.id}" onclick="changestatus(this);" class="btn btn-primary btn-sm shiny">启用</a>
+                                    {else /}
+                                    <a modelid="{$model.id}" onclick="changestatus(this);" class="btn btn-danger btn-sm shiny">禁用</a>
+                                    {/if}
+                                </td>
+                                <td align="center">
+                                    <a href="{:url('ModelFields/lst',array('model_id'=>$model['id']))}" class="btn btn-primary btn-sm shiny">
+                                        <i class="fa fa-list-ul"></i> 字段列表
+                                    </a>
+                                    <a href="{:url('Model/edit',array('model_id'=>$model['id']))}" class="btn btn-primary btn-sm shiny">
+                                        <i class="fa fa-edit"></i> 编辑
+                                    </a>
+                                    <a href="#" id="{$model.id}" table_name="{$prefix}{$model.table_name}" onClick="ajaxdel(this);" class="btn btn-danger btn-sm shiny">
+                                        <i class="fa fa-trash-o"></i> 删除
+                                    </a>
+                                </td>
+                            </tr>
+                            {/volist}  
+                        </tbody>
+                    </table>
+                    <div style="padding-top:10px; text-align:right;">
+                    {$modelRes->render()}
+                    </div>
+                </div>
+                <div>
+                	                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                </div>
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+		</div>	
+	</div>
+
+	    <!--Basic Scripts-->
+    
+    <script src="__ADMIN__/style/bootstrap.js"></script>
+    <!--Beyond Scripts-->
+    <script src="__ADMIN__/style/beyond.js"></script>
+    <script type="text/javascript">
+        //ajax异步修改模型启用状态
+        function changestatus(o){
+            var modelid=$(o).attr("modelid");
+            $.ajax({
+                type:"post",
+                dataType:"json",
+                data:{modelid:modelid},
+                url:"{:url('Model/changestatus')}",
+                success:function(data){
+                    if(data==1){
+                        $(o).attr("class","btn btn-danger btn-sm shiny");
+                        $(o).text('禁用');
+                    }else{
+                        $(o).attr("class","btn btn-primary btn-sm shiny");
+                        $(o).text('启用');
+                    }
+                }
+            });
+        }
+
+        //ajax删除模型
+        function ajaxdel(o){
+            layer.confirm('确定要删除该模型吗？', {icon: 3, title:'提示'}, function(index){
+            //do something
+            var id=$(o).attr("id");
+            var table_name=$(o).attr("table_name");
+            $.ajax({
+                type:"post",
+                dataType:"json",
+                data:{id:id,table_name:table_name},
+                url:"{:url('Model/ajaxdel')}",
+                success:function(data){
+                    if(data==1){
+                        layer.msg('删除模型成功！', {icon: 1});
+                        window.location.href="{:url('Model/lst')}";
+                    }else{
+                        layer.msg('删除模型失败！', {icon: 2});
+                    }
+                }
+            });
+              layer.close(index);
+            });
+        }
+    </script>
+
+
+</body></html>

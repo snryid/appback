@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html><head>
+	    <meta charset="utf-8">
+    <title>童老师ThinkPHP交流群：484519446</title>
+
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link href="__ADMIN__/style/bootstrap.css" rel="stylesheet">
+    <link href="__ADMIN__/style/font-awesome.css" rel="stylesheet">
+    <link href="__ADMIN__/style/weather-icons.css" rel="stylesheet">
+
+    <!--Beyond styles-->
+    <link id="beyond-link" href="__ADMIN__/style/beyond.css" rel="stylesheet" type="text/css">
+    <link href="__ADMIN__/style/demo.css" rel="stylesheet">
+    <link href="__ADMIN__/style/typicons.css" rel="stylesheet">
+    <link href="__ADMIN__/style/animate.css" rel="stylesheet">
+    <style type="text/css">
+    .form-controller{ width: 200px; float: left; margin-right: 20px;}
+    </style>
+</head>
+<body>
+	<!-- 头部 -->
+	{include file="common/head"}
+
+	<!-- /头部 -->
+	
+	<div class="main-container container-fluid">
+		<div class="page-container">
+			            <!-- Page Sidebar -->
+            {include file="common/left"}
+            <!-- /Page Sidebar -->
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                                        <li>
+                        <a href="#">系统</a>
+                    </li>
+                                        <li>
+                        <a href="{:url('noteList')}">节点管理</a>
+                    </li>
+                                        <li class="active">添加节点</li>
+                                        </ul>
+                </div>
+                <!-- /Page Breadcrumb -->
+
+                <!-- Page Body -->
+                <div class="page-body">
+                    
+<div class="row">
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <div class="widget">
+            <div class="widget-header bordered-bottom bordered-blue">
+                <span class="widget-caption">新增节点-内容采集配置</span>
+            </div>
+            <div class="widget-body">
+                <div id="horizontal-form">
+                    <form class="form-horizontal" role="form" action="" method="post">
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right">标题</label>
+                            <div class="col-sm-6">
+                                <input class="form-control form-controller" placeholder="采集规则" name="title[0]" required="" type="text">
+                                <input class="form-control form-controller" placeholder="采集属性" name="title[1]" required=""  type="text">
+                                <input class="form-control form-controller" placeholder="过滤规则" name="title[2]"  type="text">
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right">关键词</label>
+                            <div class="col-sm-6">
+                                <input class="form-control form-controller" placeholder="采集规则" name="keywords[0]"  type="text">
+                                <input class="form-control form-controller" placeholder="采集属性" name="keywords[1]"  type="text">
+                                <input class="form-control form-controller" placeholder="过滤规则" name="keywords[2]"  type="text">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right">描述</label>
+                            <div class="col-sm-6">
+                                <input class="form-control form-controller" placeholder="采集规则" name="description[0]"  type="text">
+                                <input class="form-control form-controller" placeholder="采集属性" name="description[1]"  type="text">
+                                <input class="form-control form-controller" placeholder="过滤规则" name="description[2]"  type="text">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right">作者</label>
+                            <div class="col-sm-6">
+                                <input class="form-control form-controller" placeholder="采集规则" name="writer[0]"  type="text">
+                                <input class="form-control form-controller" placeholder="采集属性" name="writer[1]"  type="text">
+                                <input class="form-control form-controller" placeholder="过滤规则" name="writer[2]"  type="text">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right">来源</label>
+                            <div class="col-sm-6">
+                                <input class="form-control form-controller" placeholder="采集规则" name="source[0]"  type="text">
+                                <input class="form-control form-controller" placeholder="采集属性" name="source[1]"  type="text">
+                                <input class="form-control form-controller" placeholder="过滤规则" name="source[2]"  type="text">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right">内容</label>
+                            <div class="col-sm-6">
+                                <input class="form-control form-controller" placeholder="采集规则" name="content[0]"  type="text">
+                                <input class="form-control form-controller" placeholder="采集属性" name="content[1]"  type="text">
+                                <input class="form-control form-controller" placeholder="过滤规则" name="content[2]"  type="text">
+                            </div>
+                        </div>
+                        {if condition="$modelFieldRes"}
+                        {volist name="modelFieldRes" id="modelField"}
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label no-padding-right">{$modelField.field_cname}</label>
+                            <div class="col-sm-6">
+                                <input class="form-control form-controller" placeholder="采集规则" name="{$modelField.field_ename}[0]"  type="text">
+                                <input class="form-control form-controller" placeholder="采集属性" name="{$modelField.field_ename}[1]"  type="text">
+                                <input class="form-control form-controller" placeholder="过滤规则" name="{$modelField.field_ename}[2]"  type="text">
+                            </div>
+                        </div>
+                        {/volist}
+                        {/if}
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default">保存信息</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                </div>
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+		</div>	
+	</div>
+
+	    <!--Basic Scripts-->
+    <script src="__ADMIN__/style/jquery_002.js"></script>
+    <script src="__ADMIN__/style/bootstrap.js"></script>
+    <script src="__ADMIN__/style/jquery.js"></script>
+    <!--Beyond Scripts-->
+    <script src="__ADMIN__/style/beyond.js"></script>
+    
+
+
+</body></html>

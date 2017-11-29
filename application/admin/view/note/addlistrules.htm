@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html><head>
+	    <meta charset="utf-8">
+    <title>今日电器 APPBack</title>
+
+    <meta name="description" content="Dashboard">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!--Basic Styles-->
+    <link href="__ADMIN__/style/bootstrap.css" rel="stylesheet">
+    <link href="__ADMIN__/style/font-awesome.css" rel="stylesheet">
+    <link href="__ADMIN__/style/weather-icons.css" rel="stylesheet">
+
+    <!--Beyond styles-->
+    <link id="beyond-link" href="__ADMIN__/style/beyond.css" rel="stylesheet" type="text/css">
+    <link href="__ADMIN__/style/demo.css" rel="stylesheet">
+    <link href="__ADMIN__/style/typicons.css" rel="stylesheet">
+    <link href="__ADMIN__/style/animate.css" rel="stylesheet">
+    
+</head>
+<body>
+	<!-- 头部 -->
+	{include file="common/head"}
+
+	<!-- /头部 -->
+	
+	<div class="main-container container-fluid">
+		<div class="page-container">
+			            <!-- Page Sidebar -->
+            {include file="common/left"}
+            <!-- /Page Sidebar -->
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                        <li>
+                            <i class="fa fa-home"></i>
+                            <a href="{:url('index/index')}">我的桌面</a>
+                        </li>
+                        <li>
+                            <a href="{:url('noteList')}">节点管理</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Page Breadcrumb -->
+
+                <!-- Page Header -->
+                <div class="page-header position-relative">
+                    <div class="header-title">
+                        <h1>添加节点</h1>
+                    </div>
+                    <!--Header Buttons-->
+                    <div class="header-buttons">
+                        <a class="sidebar-toggler" href="#">
+                            <i class="fa fa-arrows-h"></i>
+                        </a>
+                        <a class="refresh" id="refresh-toggler" href="">
+                            <i class="glyphicon glyphicon-refresh"></i>
+                        </a>
+                        <a class="fullscreen" id="fullscreen-toggler" href="#">
+                            <i class="glyphicon glyphicon-fullscreen"></i>
+                        </a>
+                    </div>
+                    <!--Header Buttons End-->
+                </div>
+                <!-- /Page Header -->
+
+                <!-- Page Body -->
+                <div class="page-body">
+                    
+<div class="row">
+    <div class="col-lg-12 col-sm-12 col-xs-12">
+        <div class="widget">
+            <div class="widget-header bordered-bottom bordered-blue">
+                <span class="widget-caption">新增节点-列表采集配置</span>
+            </div>
+            <div class="widget-body">
+                <div id="horizontal-form">
+                    <form class="form-horizontal" role="form" action="" method="post">
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right">节点名称</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" placeholder="" name="note_name" required="" type="text">
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="group_id" class="col-sm-2 control-label no-padding-right">所属模型</label>
+                            <div class="col-sm-6">
+                                <select name="model_id" style="width: 100%;">
+                                    <option value="">选择模型</option>
+                                    {volist name="modelRes" id="model"}
+                                    <option value="{$model.id}">{$model.model_name}</option>
+                                    {/volist}
+                                </select>
+                            </div>
+                        </div>  
+
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right">输出编码</label>
+                            <div class="col-sm-6">
+                                <div class="radio" style="float:left; padding-left:10px;">
+                                    <label>
+                                        <input checked="checked" name="output_encoding" value="UTF-8" class="colored-blue" type="radio">
+                                        <span class="text">UTF-8</span>
+                                    </label>
+                                    <label>
+                                        <input name="output_encoding" value="GB2312" class="colored-blue" type="radio">
+                                        <span class="text">GB2312</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right">输入编码</label>
+                            <div class="col-sm-6">
+                                <div class="radio" style="float:left; padding-left:10px;">
+                                    <label>
+                                        <input checked="checked" name="input_encoding" value="UTF-8" class="colored-blue" type="radio">
+                                        <span class="text">UTF-8</span>
+                                    </label>
+                                    <label>
+                                        <input name="input_encoding" value="GB2312" class="colored-blue" type="radio">
+                                        <span class="text">GB2312</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right">列表URL</label>
+                            <div class="col-sm-6">
+                                <input class="form-control" placeholder="" name="list_url" required="" type="text">
+                            </div>
+                            <p class="help-block col-sm-4 red">* 动态页码使用(*)代替</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right">页码配置</label>
+                            <div class="col-sm-6">
+                                <span class="control-label" style="float:left; padding-left:10px; padding-right:10px;">从</span>
+                                <input class="form-control" style="width:50px; float:left; text-align:center;" name="start_page" required="" value="1" type="text">
+                                <span style="float:left; padding-left:10px; padding-right:10px;" class="control-label">到</span>
+                                <input class="form-control" style="width:50px; float:left; text-align:center;" name="end_page" required="" type="text">
+                                <span style="float:left; padding-left:10px; padding-right:10px;" class="control-label">每次递增</span>
+                                <input class="form-control" style="width:50px; float:left; text-align:center;" name="step" required="" type="text">
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right">采集范围</label>
+                            <div class="col-sm-6">
+                                <textarea class="form-control" name="range"></textarea>
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right">URL采集规则</label>
+                            <div class="col-sm-6">
+                                <textarea class="form-control" name="url"></textarea>
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="username" class="col-sm-2 control-label no-padding-right">缩略图采集规则</label>
+                            <div class="col-sm-6">
+                                <textarea class="form-control" name="litpic"></textarea>
+                            </div>
+                            <p class="help-block col-sm-4 red">* 必填</p>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-sm-offset-2 col-sm-10">
+                                <button type="submit" class="btn btn-default">保存信息并进入下一步设置</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+                </div>
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+		</div>	
+	</div>
+
+	    <!--Basic Scripts-->
+    <script src="__ADMIN__/style/jquery_002.js"></script>
+    <script src="__ADMIN__/style/bootstrap.js"></script>
+    <script src="__ADMIN__/style/jquery.js"></script>
+    <!--Beyond Scripts-->
+    <script src="__ADMIN__/style/beyond.js"></script>
+    
+
+
+</body></html>

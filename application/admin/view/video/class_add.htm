@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title> 今日电器 APPBack </title>
+		<!--引用文件-->
+		<meta name="description" content="Dashboard">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<!--Basic Styles-->
+		<link href="__ADMIN__/style/bootstrap.css" rel="stylesheet">
+		<link href="__ADMIN__/style/font-awesome.css" rel="stylesheet">
+		<link href="__ADMIN__/style/weather-icons.css" rel="stylesheet">
+		<link href="__ADMIN__/layer/skin/layer.css" rel="stylesheet">
+		
+		<!--Beyond styles-->
+		<link id="beyond-link" href="__ADMIN__/style/beyond.css" rel="stylesheet" type="text/css">
+		<link href="__ADMIN__/style/admin-top.css" rel="stylesheet" type="text/css">
+		<link href="__ADMIN__/style/demo.css" rel="stylesheet">
+		<link href="__ADMIN__/style/typicons.css" rel="stylesheet">
+		<link href="__ADMIN__/style/animate.css" rel="stylesheet">
+		<!--/引用文件-->
+	</head>
+
+	<body>
+		<!-- 头部 -->
+		{include file="common/head" /}
+		<!-- /头部 -->
+		<div class="main-container container-fluid">
+			<div class="page-container">
+				<!-- Page Sidebar -->
+				{include file="common/left" /}
+				<!-- /Page Sidebar -->
+
+				<!-- Page Content -->
+				<div class="page-content">
+					<!-- Page Breadcrumb -->
+					<div class="page-breadcrumbs">
+						<ul class="breadcrumb">
+						<li class="active">视频管理</li>
+							<li><a href="{:url('video/class_list')}">视频分类</a></li>
+							<li class="active">新增分类</li>
+						</ul>
+					</div>
+					<!-- /Page Breadcrumb -->
+
+					<!-- Page Body -->
+					<div class="page-body">
+                    <button type="button" tooltip="添加栏目" class="btn btn-sm btn-azure btn-addon" onClick="javascript:window.location.href = '{:url('class_list')}'"> 返回上一步 </button>
+						<div class="row">
+							<div class="col-lg-12 col-sm-12 col-xs-12">
+								<div class="widget">
+									<div class="widget-header bordered-bottom bordered-blue">
+										<span class="widget-caption">增加分类</span>
+									</div>
+									<div class="widget-body">
+										<div id="horizontal-form">
+											<form class="form-horizontal" role="form" action="" method="post">
+
+												<div class="form-group">
+													<label for="username" class="col-sm-2 control-label no-padding-right">新增分类</label>
+													<div class="col-sm-6">
+														<input class="form-control" placeholder="" name="class_video" type="text">
+													</div>
+													<p class="help-block col-sm-4 red">* 必填</p>
+												</div>
+												
+												<div class="form-group">
+													<label for="username" class="col-sm-2 control-label no-padding-right">分类描述</label>
+													<div class="col-sm-6">
+														<textarea name="class_content" class="form-control"></textarea>
+													</div>
+												</div>
+												
+												<div class="form-group">
+													<label for="username" class="col-sm-2 control-label no-padding-right"> 排 序 </label>
+													<div class="col-sm-6">
+														<input class="form-control" placeholder="" name="class_sort" type="text">
+													</div>
+												</div>
+
+												<div class="form-group">
+													<div class="col-sm-offset-2 col-sm-10">
+														<button type="submit" class="btn btn-success">提 交</button>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<!-- /Page Body -->
+				</div>
+				<!-- /Page Content -->
+			</div>
+		</div>
+		<!--Basic Scripts-->
+		<script src="__ADMIN__/style/jquery_002.js"></script>
+		<script src="__ADMIN__/style/bootstrap.js"></script>
+		<script src="__ADMIN__/style/jquery.js"></script>
+		<!--Beyond Scripts-->
+		<script src="__ADMIN__/style/beyond.js"></script>
+		
+		{include file="common/JSresult" /}
+	</body>
+
+</html>

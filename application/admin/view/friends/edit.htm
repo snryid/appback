@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title> 今 日 电 器 </title>
+		<!--引用文件-->
+		<meta content="Dashboard" name="description">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <meta content="IE=edge" http-equiv="X-UA-Compatible">
+        <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <!--Basic Styles-->
+        <link href="__ADMIN__/style/bootstrap.css" rel="stylesheet">
+        <link href="__ADMIN__/style/font-awesome.css" rel="stylesheet">
+        <link href="__ADMIN__/style/weather-icons.css" rel="stylesheet">
+        <!--Beyond styles-->
+        <link href="__ADMIN__/style/beyond.css" id="beyond-link" rel="stylesheet" type="text/css">
+        <link href="__ADMIN__/style/admin-top.css" rel="stylesheet" type="text/css">
+        <link href="__ADMIN__/style/demo.css" rel="stylesheet">
+        <link href="__ADMIN__/style/typicons.css" rel="stylesheet">
+        <link href="__ADMIN__/style/animate.css" rel="stylesheet">
+        <script src="__ADMIN__/plus/ueditor/ueditor.config.js"></script>
+        <script src="__ADMIN__/plus/ueditor/ueditor.all.min.js"></script>
+        <script src="__ADMIN__/plus/ueditor/lang/zh-cn/zh-cn.js"></script> 
+    	<style type="text/css">
+    		#picInput>input{
+		        display: block;
+		        margin: 10px;
+		    }
+    	</style>
+		<!--/引用文件-->
+	</head>
+
+	<body>
+		<!-- 头部 -->
+		{include file="common/head" /}
+		<!-- /头部 -->
+		<div class="main-container container-fluid">
+			<div class="page-container">
+				<!-- Page Sidebar -->
+				{include file="common/left" /}
+				<!-- /Page Sidebar -->
+
+				<!-- Page Content -->
+				<div class="page-content">
+					<!-- Page Breadcrumb -->
+					<div class="page-breadcrumbs">
+	                   <ul class="breadcrumb">
+	                       <li>
+	                           <i class="fa fa-home"></i>
+	                           <a href="{:url('index/index')}">我的桌面</a>
+	                       </li>
+	                       <li>
+	                           <a href="{:url('friends/index')}">交流贴管理</a>
+	                       </li>
+	                   </ul>
+	               </div>
+					<!-- /Page Breadcrumb -->
+
+					<!-- Page Body -->
+					<div class="page-body">
+
+						<div class="row">
+							<div class="col-lg-12 col-sm-12 col-xs-12">
+								<div class="widget">
+									<div class="widget-header bordered-bottom bordered-blue">
+										<span class="widget-caption">修改论坛</span>
+									</div>
+									<div class="widget-body">
+										<div id="horizontal-form">
+											<form class="form-horizontal" role="form" action="" enctype="multipart/form-data" method="post">
+												<div class="form-group">
+													<label for="username" class="col-sm-2 control-label no-padding-right">类	  &nbsp; &nbsp; &nbsp; 型</label>
+													<div class="col-sm-6">
+														<select name="tribune_type">
+						                                    <option value="">{$tribune.tribune_type}</option>
+						                                    <option value="美甲论坛">美甲论坛</option>
+						                                    <option value="视频论坛">视频论坛</option>
+														</select>
+													</div>
+													<p class="help-block col-sm-4 red">* 必选</p>
+												</div>
+	
+												<div class="form-group">
+													<label for="username" class="col-sm-2 control-label no-padding-right">标	  &nbsp; &nbsp; &nbsp; 题</label>
+													<div class="col-sm-6">
+														<input class="form-control" placeholder=""  required="" name="tribune_title" type="text" value="{$tribune.tribune_title}">
+													</div>
+													<p class="help-block col-sm-4 red">* 必填</p>
+												</div>
+	
+												<div class="form-group">
+													<label for="username" class="col-sm-2 control-label no-padding-right">描	  &nbsp; &nbsp; &nbsp; 述</label>
+													<div class="col-sm-6">
+														<textarea name="tribune_des" class="form-control">{$tribune.tribune_des}</textarea>
+													</div>
+												</div>
+													
+												<div class="form-group">
+													<label for="username" class="col-sm-2 control-label no-padding-right">转	  &nbsp; &nbsp; &nbsp; 载</label>
+													<div class="col-sm-6">
+														<input class="form-control" placeholder=""  name="atc_reprint" type="text" value="{$tribune.atc_reprint}">
+													</div>
+													<p class="help-block col-sm-4 red">* 如果引用其他网站文章在此填写地址</p>
+												</div>
+
+												<div class="form-group">
+												    <label for="username"  required="" class="col-sm-2 control-label no-padding-right">发表内容</label>
+												    <div class="col-sm-6">
+												        <textarea id="content" name="tribune_content">{$tribune.tribune_content}</textarea>
+												    </div>
+												    <p class="help-block col-sm-4 red"></p>
+												</div>
+
+												<div class="form-group">
+													<label for="username" class="col-sm-2 control-label no-padding-right">修改图片</label>
+													<div class="col-sm-3" >
+													{volist name="tribune_img" id="path"}
+														<img src="{$path}" width="100" height="100" style="margin: 5px;">
+													{/volist}
+													</div>
+													<div class="col-sm-3" id="picInput">
+														
+													</div>
+													<input id="addBtn"  type="button" onclick="addPic()" value="修改上传图片">
+												</div>
+												
+												<div class="form-group">
+													<label for="username" class="col-sm-2 control-label no-padding-right">状	 &nbsp; &nbsp; &nbsp; 态</label>
+													<div class="col-sm-6">
+														<label class="radio" style="float:left; margin-right:10px;" style="margin-right:15px;">
+						                                    <input  {if condition="$tribune['tribune_status'] eq 1"} checked="checked" {/if} name="tribune_status" value="1" type="radio">
+						                                    <span class="text">公布</span>
+	                                					</label>
+														<label class="radio" style="float:left; margin-right:10px;" style="margin-right:15px;">
+						                                    <input {if condition="$tribune['tribune_status'] eq 0"} checked="checked" {/if}  class="inverted" name="tribune_status" value="0" type="radio">
+						                                    <span class="text">不公布</span>
+	                                					</label>
+													</div>
+													<p class="help-block col-sm-4 red">* 必填</p>
+												</div>
+	
+												
+	
+												<div class="form-group">
+													<div class="col-sm-offset-2 col-sm-10">
+														<button type="submit" class="btn btn-success">保存</button>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<!-- /Page Body -->
+				</div>
+				<!-- /Page Content -->
+			</div>
+		</div>
+		<!--Basic Scripts-->
+		<script src="__ADMIN__/style/jquery_002.js"></script>
+		<script src="__ADMIN__/style/bootstrap.js"></script>
+		<script src="__ADMIN__/style/jquery.js"></script>
+		<!--Beyond Scripts-->
+		<script src="__ADMIN__/style/beyond.js"></script>
+		{include file="common/JSresult" /}
+		<script type="text/javascript">
+
+		//实例化编辑器
+		//建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+		UE.getEditor('content',{initialFrameWidth:800,initialFrameHeight:400,});
+		</script>
+		<script>
+		    function addPic(){
+		        var addBtn =  document.getElementById('addBtn');
+		        var input = document.createElement("input");
+		        input.type = 'file';
+		        input.name = 'image[]';
+		        var picInut = document.getElementById('picInput');
+		        picInut.appendChild(input);
+		        if(picInut.children.length == 4){
+		            addBtn.disabled = 'disabled';
+		        }
+		    }
+		</script>
+
+	</body>
+
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html><head>
+	    <meta charset="utf-8">
+    <title> 今 日 电 器 - 论坛管理</title>
+
+     <!--引用文件-->
+	{include file="common/link" /} 
+    <!--/引用文件-->
+</head>
+<body>
+	<!-- 头部 -->
+    {include file="common/head" /} 
+	<!-- /头部 -->
+	
+	<div class="main-container container-fluid">
+		<div class="page-container">
+			<!-- Page Sidebar -->
+            {include file="common/left" /} 
+            <!-- /Page Sidebar -->
+            <!-- Page Content -->
+            <div class="page-content">
+                <!-- Page Breadcrumb -->
+                <div class="page-breadcrumbs">
+                    <ul class="breadcrumb">
+                        <li>
+                            <i class="fa fa-home"></i>
+                            <a href="{:url('index/index')}">我的桌面</a>
+                        </li>
+                        <li>
+                            <a href="#">朋友圈管理</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- Page Breadcrumb -->
+                <!-- Page Header -->
+                <div class="page-header position-relative">
+                    <div class="header-title">
+                        <h1>圈内资讯列表</h1>
+                    </div>
+                    <!--Header Buttons-->
+                    <div class="header-buttons">
+                        <a class="sidebar-toggler" href="#">
+                            <i class="fa fa-arrows-h"></i>
+                        </a>
+                        <a class="refresh" id="refresh-toggler" href="">
+                            <i class="glyphicon glyphicon-refresh"></i>
+                        </a>
+                        <a class="fullscreen" id="fullscreen-toggler" href="#">
+                            <i class="glyphicon glyphicon-fullscreen"></i>
+                        </a>
+                    </div>
+                    <!--Header Buttons End-->
+                </div>
+                <!-- /Page Header -->
+                <!-- Page Body -->
+                <div class="page-body">
+                   <button class="btn btn-sm btn-azure btn-addon" onclick="javascript:window.location.href = '{:url('add')}'" tooltip="添加管理员" type="button"> <i class="fa fa-plus"></i> Add </button>
+                       <div class="row">
+                           <div class="col-lg-12 col-sm-12 col-xs-12">
+                               <div class="widget">
+                                   <div class="widget-body">
+                                       <div class="flip-scroll">
+                                           <table class="table table-bordered table-hover">
+                                               <thead class="">
+                                                   <tr> 
+                                                       <th class="text-center" width="3%">ID</th>
+                                                       <th class="text-center" >作者</th>
+                                                       <th class="text-center">标题</th> 
+                                                       <th class="text-center" >类型</th>
+                                                       <th class="text-center" >描述 </th>
+                                                       <th class="text-center" >内容</th>
+                                                       <th class="text-center" >转载地址</th>
+                                                       <th class="text-center" >发布时间 </th>
+                                                        <th class="text-center" >状态</th>
+                                                       <th class="text-center" width="20%">操作</th>
+                                                   </tr>
+                                               </thead>
+                                               <tbody>
+                                                {volist name="tribune" id="trb"}
+                                                   <tr>
+                                                       <td align="center">{$trb.tribune_id}</td>
+                                                       <td align="center">{$trb.user_name}</td>
+                                                       <td align="center">{$trb.tribune_title}</td>
+                                                       <td align="center">{$trb.tribune_type}</td>
+                                                       <td >{$trb.tribune_des|cut_str=###,8}</td>
+                                                       <td >{$trb.tribune_content|cut_str=###,35}</td>
+                                                       <td >{$trb.atc_reprint}</td>
+                                                       <td align="center">{$trb.add_time}</td>
+                                                       <td align="center">
+                                                          {if condition=" $trb['tribune_status'] eq 1 "}
+                                                                    公开
+                                                            {else }
+                                                                <span style="color: red;">未公开</span>
+                                                            {/if}
+                                                       </td>
+                                                       <td align="center">
+                                                            <a class="btn btn-primary btn-sm shiny" href="{:url('check',array('tribune_id'=>$trb['tribune_id'],'tribune_title'=>$trb['tribune_title']))}">
+                                                               <i class="fa fa-eye"></i>
+                                                               回复查看
+                                                           </a>
+                                                           <a class="btn btn-primary btn-sm shiny" href="{:url('edit',array('tribune_id'=>$trb['tribune_id']))}">
+                                                               <i class="fa fa-edit"></i>
+                                                               编辑
+                                                           </a>
+                                                           <a class="btn btn-danger btn-sm shiny" href="#" onclick="warning('确定要删除吗', '{:url('trb_del',array('tribune_id'=>$trb['tribune_id']))}')">
+                                                               <i class="fa fa-trash-o"></i>
+                                                               删除
+                                                           </a>
+                                                       </td>
+                                                   </tr>
+                                                   {/volist}
+                                               </tbody>
+                                           </table>
+                                       </div>
+                                       <div style="text-align:right; padding-top:10px;">
+                                            {$tribune ->render()}
+                                       </div>
+                                       <div>
+                                       </div>
+                                   </div>
+                               </div>
+                           </div>
+                       </div>
+                </div>
+                
+
+                </div>
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+		</div>	
+	</div>
+
+	    <!--Basic Scripts-->
+    <script src="__ADMIN__/style/jquery_002.js"></script>
+    <script src="__ADMIN__/style/bootstrap.js"></script>
+    <script src="__ADMIN__/style/jquery.js"></script>
+    <!--Beyond Scripts-->
+    <script src="__ADMIN__/style/beyond.js"></script>
+    <script src="__ADMIN__/layer/layer.js"></script>
+    <script type="text/javascript">
+      function display(modurl){
+        layer.open({
+                type: 2,
+                title: '回复列表',
+                area: ['700px', '530px'],
+                fix: false, //不固定
+                shadeClose: false, //点击遮罩关闭
+                shade: 0.8,
+                maxmin: true,
+                content: 'check.html?tribune_id'+modurl,
+            });
+
+      }
+    </script>
+
+
+</body>
+</html>

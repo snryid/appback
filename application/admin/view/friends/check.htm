@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+            <title>
+                今 日 电 器
+            </title>
+            <!--引用文件-->
+            <meta content="Dashboard" name="description">
+            <meta content="width=device-width, initial-scale=1.0" name="viewport">
+            <meta content="IE=edge" http-equiv="X-UA-Compatible">
+            <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+            <!--Basic Styles-->
+            <link href="__ADMIN__/style/bootstrap.css" rel="stylesheet">
+            <link href="__ADMIN__/style/font-awesome.css" rel="stylesheet">
+            <link href="__ADMIN__/style/weather-icons.css" rel="stylesheet">
+            <!--Beyond styles-->
+            <link href="__ADMIN__/style/beyond.css" id="beyond-link" rel="stylesheet" type="text/css">
+            <link href="__ADMIN__/style/admin-top.css" rel="stylesheet" type="text/css">
+            <link href="__ADMIN__/style/demo.css" rel="stylesheet">
+            <link href="__ADMIN__/style/typicons.css" rel="stylesheet">
+            <link href="__ADMIN__/style/animate.css" rel="stylesheet">
+            <script src="__ADMIN__/ueditor/ueditor.config.js"></script>
+            <script src="__ADMIN__/ueditor/ueditor.all.min.js"></script>
+            <script src="__ADMIN__/ueditor/lang/zh-cn/zh-cn.js"></script>
+            <!--/引用文件-->
+                                                        
+    </head>
+    <body>
+        <!-- 头部 -->
+        {include file="common/head" /}
+        <!-- /头部 -->
+        <div class="main-container container-fluid">
+            <div class="page-container">
+                <!-- Page Sidebar -->
+                {include file="common/left" /}
+                <!-- /Page Sidebar -->
+                <!-- Page Content -->
+                <div class="page-content">
+                    <!-- Page Breadcrumb -->
+                    <div class="page-breadcrumbs">
+                        <ul class="breadcrumb">
+                            <li>
+                                <i class="fa fa-home">
+                                </i>
+                                <a href="{:url('index/index')}">
+                                    我的桌面
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{:url('friends/index')}">
+                                    交流贴管理
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- /Page Breadcrumb -->
+                    <!-- Page Header -->
+                    <div class="page-header position-relative">
+                        <div class="header-title">
+                            <h1>
+                                回复列表
+                            </h1>
+                        </div>
+                        <!--Header Buttons-->
+                        <div class="header-buttons">
+                            <a class="sidebar-toggler" href="#">
+                                <i class="fa fa-arrows-h"></i>
+                            </a>
+                            <a class="refresh" href="" id="refresh-toggler">
+                                <i class="glyphicon glyphicon-refresh"></i>
+                            </a>
+                            <a class="fullscreen" href="#" id="fullscreen-toggler">
+                                <i class="glyphicon glyphicon-fullscreen"></i>
+                            </a>
+                        </div>
+                        <!--Header Buttons End-->
+                    </div>
+                    <!-- /Page Header -->
+                    <!-- Page Body -->
+                    <div class="page-body">
+                        <div class="row">
+                            <div class="col-lg-12 col-sm-12 col-xs-12">
+                                <div class="widget">
+                                    <div class="widget-header bordered-bottom bordered-blue">
+                                        <span class="widget-caption">
+                                            查看 <span style="color: #2dc3e8;">{$tribune}</span> 的回复
+                                        </span>
+                                    </div>
+                                    <div class="widget-body">
+                                        <div class="flip-scroll">
+                                            <table class="table table-bordered table-hover">
+                                                <thead class="">
+                                                    <tr>
+                                                        <th class="text-center" width="5%">ID</th>
+                                                        <th class="text-center" width="7%">评论者名称</th>
+                                                        <th class="text-center" width="5%">头像</th>
+                                                        <th class="text-center">评论内容</th>
+                                                        <th class="text-center"> 评论时间</th>
+                                                        <th class="text-center">评论者IP</th>
+                                                        <th class="text-center">评论图片</th>
+                                                        <th class="text-center">状态<br>(红色不显示)</th>
+                                                        <th class="text-center" width="10%"> 操作</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    {volist name="comment" id="comm"}
+                                                    <tr>
+                                                        <td align="center">{$comm.comment_id}</td>
+                                                        <td align="center">{$comm.user_name}</td>
+                                                        <td align="center">
+                                                            <img src="{$comm.user_headimg}" height="30">
+                                                        </td>
+                                                        <td >{$comm.comment_content} </td>
+                                                        <td align="center"> {$comm.add_time}</td>
+                                                        <td align="center"> {$comm.user_ip}</td>
+                                                        <td > {$comm.comment_img}</td>
+                                                        <td align="center">
+                                                            {if condition="$comm['comment_status'] eq 1"}
+                                                            <a modelid="{$comm.comment_id}" onclick="changestatus(this);" class="btn btn-primary btn-sm shiny">隐藏</a>
+                                                            {else /}
+                                                            <a modelid="{$comm.comment_id}" onclick="changestatus(this);" class="btn btn-danger btn-sm shiny">显示</a>
+                                                            {/if}
+                                                        </td>
+                                                        <td align="center">
+                                                            <a class="btn btn-danger btn-sm shiny" href="#" onclick="warning('确实要删除吗', '{:url('check_del',array('comment_id'=>$comm['comment_id'],'tribune_id'=>$comm['tribune_id']))}')">
+                                                                <i class="fa fa-trash-o"></i>
+                                                                删除
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                    {/volist}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div style="padding-top:10px;">
+                                            {$comment ->render()}
+                                        </div>
+                                        <div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /Page Body -->
+            </div>
+            <!-- /Page Content -->
+        </div>
+    </body>
+</html>
+<!--Basic Scripts-->
+<script src="__ADMIN__/style/jquery_002.js"></script>
+<script src="__ADMIN__/style/bootstrap.js"></script>
+<script src="__ADMIN__/style/jquery.js"></script>
+<!--Beyond Scripts-->
+<script src="__ADMIN__/style/beyond.js"></script>
+<script src="__ADMIN__/layer/layer.js"></script>
+<script type="text/javascript">
+    //实例化编辑器
+		//建议使用工厂方法getEditor创建和引用编辑器实例，如果在某个闭包下引用该编辑器，直接调用UE.getEditor('editor')就能拿到相关的实例
+		UE.getEditor('content',{initialFrameWidth:800,initialFrameHeight:400,});
+  
+</script>
+<script type="text/javascript">
+    //ajax异步修改模型启用状态
+    function changestatus(o){
+        var modelid=$(o).attr("modelid");
+        $.ajax({
+            type:"post",
+            dataType:"json",
+            data:{modelid:modelid},
+            url:"{:url('Friends/changestatus')}",
+            success:function(data){
+                if(data==1){
+                    $(o).attr("class","btn btn-danger btn-sm shiny");
+                    $(o).text('显示');
+                }else{
+                    $(o).attr("class","btn btn-primary btn-sm shiny");
+                    $(o).text('隐藏');
+                }
+            }
+        });
+    }
+</script>
+

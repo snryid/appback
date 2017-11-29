@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title> 今日电器 APPBack </title>
+
+		<meta name="description" content="Dashboard">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<!--Basic Styles-->
+		<link href="__ADMIN__/style/bootstrap.css" rel="stylesheet">
+		<link href="__ADMIN__/style/font-awesome.css" rel="stylesheet">
+		<link href="__ADMIN__/style/weather-icons.css" rel="stylesheet">
+
+		<!--Beyond styles-->
+		<link id="beyond-link" href="__ADMIN__/style/beyond.css" rel="stylesheet" type="text/css">
+		<link href="__ADMIN__/style/admin-top.css" rel="stylesheet" type="text/css">
+		<link href="__ADMIN__/style/demo.css" rel="stylesheet">
+		<link href="__ADMIN__/style/typicons.css" rel="stylesheet">
+		<link href="__ADMIN__/style/animate.css" rel="stylesheet">
+
+	</head>
+
+	<body>
+		<!-- 头部 -->
+		{include file="common/head" /}
+		<!-- /头部 -->
+
+		<div class="main-container container-fluid">
+			<div class="page-container">
+				<!-- Page Sidebar -->
+				{include file="common/left" /}
+				<!-- /Page Sidebar -->
+				<!-- Page Content -->
+				<div class="page-content">
+					<!-- Page Breadcrumb -->
+					<div class="page-breadcrumbs">
+						<ul class="breadcrumb">
+							<li>
+	                            <i class="fa fa-home"></i>
+	                            <a href="{:url('index/index')}">我的桌面</a>
+	                        </li> 
+							<li><a href="#">会员管理</a></li>
+							<li>
+								<a href="{:url('index')}">会员列表</a>
+							</li>
+						</ul>
+					</div>
+					<!-- /Page Breadcrumb -->
+					<!-- Page Header -->
+	                <div class="page-header position-relative">
+	                    <div class="header-title"> <h1>修改会员信息</h1></div>
+	                    <!--Header Buttons-->
+	                    <div class="header-buttons">
+	                        <a class="sidebar-toggler" href="#">
+	                            <i class="fa fa-arrows-h"></i>
+	                        </a>
+	                        <a class="refresh" id="refresh-toggler" href="">
+	                            <i class="glyphicon glyphicon-refresh"></i>
+	                        </a>
+	                        <a class="fullscreen" id="fullscreen-toggler" href="#">
+	                            <i class="glyphicon glyphicon-fullscreen"></i>
+	                        </a>
+	                    </div>
+	                    <!--Header Buttons End-->
+	                </div>
+                	<!-- /Page Header -->
+
+					<!-- Page Body -->
+					<div class="page-body">
+
+						<div class="row">
+							<div class="col-lg-12 col-sm-12 col-xs-12">
+								<div class="widget">
+									<div class="widget-header bordered-bottom bordered-blue">
+										<span class="widget-caption">编辑会员</span>
+									</div>
+									<div class="widget-body">
+										<div id="horizontal-form">
+											<form class="form-horizontal" role="form" action="{:url('user/edit')}" method="post">
+												<input type="hidden" name="id" value="{$user.id}" />
+												<div class="form-group">
+													<label for="username" class="col-sm-2 control-label no-padding-right">用户名</label>
+													<div class="col-sm-6">
+														<input class="form-control" placeholder="" name="user_name" type="text" value="{$user.user_name}" readonly="readonly">
+													</div>
+													<p class="help-block col-sm-4 red">* 不可修改</p>
+												</div>
+												<div class="form-group">
+													<label for="username" class="col-sm-2 control-label no-padding-right">用户昵称</label>
+													<div class="col-sm-6">
+														<input class="form-control" placeholder="" name="user_nickname" type="text" value="{$user.user_nickname}">
+													</div>
+													<p class="help-block col-sm-4 red">* 必填</p>
+												</div>
+												<div class="form-group">
+													<label for="group_id" class="col-sm-2 control-label no-padding-right">新密码</label>
+													<div class="col-sm-6">
+														<input class="form-control user_passa" placeholder="" name="user_passa" type="password">
+													</div>
+													<p class="help-block col-sm-4 red">* 必填</p>
+												</div>
+												<div class="form-group">
+													<label for="group_id" class="col-sm-2 control-label no-padding-right">确认密码</label>
+													<div class="col-sm-6">
+														<input class="form-control user_passb" id="user_passb" onblur="pass(this)" placeholder="" name="user_passb" type="password">
+													</div>
+													<p class="help-block col-sm-4 red">* 必填</p>
+												</div>
+												<div class="form-group">
+													<label for="group_id" class="col-sm-2 control-label no-padding-right">用户性别</label>
+													<div class="col-sm-6">
+														<label class="radio" style="float:left; margin-right:10px;" style="margin-right:15px;">
+						                                    <input {if condition="$user['sex'] eq 0"} checked="checked" {/if} class="inverted" name="sex" value="0" type="radio">
+						                                    <span class="text">保密</span>
+	                                					</label>
+														<label class="radio" style="float:left; margin-right:10px;" style="margin-right:15px;">
+						                                    <input {if condition="$user['sex'] eq 1"} checked="checked" {/if}  name="sex" value="1" type="radio">
+						                                    <span class="text">男</span>
+	                                					</label>
+	                                					<label class="radio" style="float:left; margin-right:10px;" style="margin-right:15px;">
+						                                    <input {if condition="$user['sex'] eq 2"} checked="checked" {/if}  name="sex" value="2" type="radio">
+						                                    <span class="text">女</span>
+	                                					</label>
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="group_id" class="col-sm-2 control-label no-padding-right">出生日期</label>
+													<div class="col-sm-6">
+												        <select name="birthday_year" class="sel_year" rel="{$year}"></select> 年
+												        <select name="birthday_month" class="sel_month" rel="{$day}"></select> 月
+												        <select name="birthday_day" class="sel_day" rel="{$month}"></select> 日
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="group_id" class="col-sm-2 control-label no-padding-right">用户手机</label>
+													<div class="col-sm-6">
+														<input class="form-control" placeholder="" name="user_mobile" type="text" value="{$user.user_mobile}">
+													</div>
+													<p class="help-block col-sm-4 red">* 必填</p>
+												</div>
+												<div class="form-group">
+													<label for="group_id" class="col-sm-2 control-label no-padding-right">用户邮箱</label>
+													<div class="col-sm-6">
+														<input class="form-control" placeholder="" name="user_email" type="text" value="{$user.user_email}">
+													</div>
+													<p class="help-block col-sm-4 red">* 必填</p>
+												</div>
+
+												<div class="form-group">
+													<label for="group_id" class="col-sm-2 control-label no-padding-right">用户地址</label>
+													<div class="col-sm-6">
+														<input class="form-control" placeholder="" name="user_site" type="text" value="{$user.user_site}">
+													</div>
+												</div>
+
+												<div class="form-group">
+													<label for="group_id" class="col-sm-2 control-label no-padding-right">个人简介</label>
+													<div class="col-sm-6">
+														<textarea name="tribune_des"  class="form-control"></textarea>
+													</div>
+												</div>
+
+												<div class="form-group">
+													<label for="group_id" class="col-sm-2 control-label no-padding-right">新增时间</label>
+													<div class="col-sm-6">
+														<span>{$add_time}</span>
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="group_id" class="col-sm-2 control-label no-padding-right">修改时间</label>
+													<div class="col-sm-6">
+														<span>{if( $edit_time neq 0 )}
+															{$edit_time}
+															{else }
+																无修改
+															{/if}</span>
+													</div>
+												</div>
+												<div class="form-group">
+													<label for="username" class="col-sm-2 control-label no-padding-right">审核是否通过</label>
+													<div class="col-sm-6">
+														<select name="checked">
+															<option value="-1">否</option>
+															<option value="1">是</option>
+														</select>
+													</div>
+													<p class="help-block col-sm-4 red">* 必填</p>
+												</div>
+												<div class="form-group">
+													<div class="col-sm-offset-2 col-sm-10">
+														<button type="submit" class="btn btn-success" id="tijiao">保存信息</button>
+													</div>
+												</div>
+											</form>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<!-- /Page Body -->
+				</div>
+				<!-- /Page Content -->
+			</div>
+		</div>
+
+		<!--Basic Scripts-->
+		<script src="__ADMIN__/style/jquery_002.js"></script>
+		<script src="__ADMIN__/style/bootstrap.js"></script>
+		<script src="__ADMIN__/style/jquery.js"></script>
+		<!--Beyond Scripts-->
+		<script src="__ADMIN__/style/beyond.js"></script>
+		<script src="__ADMIN__/style/birthday.js"></script>
+		<script>  
+		$(function () {
+			$.ms_DatePicker({
+		            YearSelector: ".sel_year",
+		            MonthSelector: ".sel_month",
+		            DaySelector: ".sel_day"
+		    });
+			$.ms_DatePicker();
+		}); 
+		</script> 
+		<script>
+			$('button').onclick(function(){
+				alert"123";
+			});
+			
+			function pass(){
+				alert"987"; 
+			}
+		</script>
+		{include file="common/JSresult" /}
+	</body>
+
+</html>

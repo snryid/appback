@@ -1,0 +1,5 @@
+<IfModule mod_security.c>
+     # 禁止对 POST 数据进行安全扫描，使不中断多文件上传等功能
+     SecFilterEngine Off
+     SecFilterScanPOST Off
+ </IfModule>
